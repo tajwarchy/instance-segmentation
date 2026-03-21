@@ -1,0 +1,32 @@
+# Virtual environment
+instance-seg/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Data (COCO is too large for GitHub)
+data/coco/
+data/*.zip
+data/*.tar.gz
+
+# Model weights (use Git LFS or releases instead)
+weights/
+results/model_checkpoints/
+
+# Logs and outputs
+*.log
+results/metrics/*.json
+results/visualizations/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/

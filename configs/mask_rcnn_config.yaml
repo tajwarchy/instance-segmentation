@@ -1,0 +1,70 @@
+# ─── Model ────────────────────────────────────────────────────────────────────
+model:
+  name: maskrcnn_resnet50_fpn
+  pretrained: true
+  num_classes: 9                  # 8 categories + 1 background
+  min_size: 512
+  max_size: 512
+
+# ─── Categories ───────────────────────────────────────────────────────────────
+categories:
+  - person
+  - car
+  - dog
+  - bicycle
+  - cat
+  - chair
+  - bottle
+  - laptop
+
+# ─── Dataset ──────────────────────────────────────────────────────────────────
+dataset:
+  root: data/coco
+  train_ann: data/coco/annotations/subset_train2017.json
+  val_ann: data/coco/annotations/subset_val2017.json
+  train_images: data/coco/train2017
+  val_images: data/coco/val2017
+  max_train_images: 2000
+  max_val_images: 500
+
+# ─── Training ─────────────────────────────────────────────────────────────────
+training:
+  epochs: 15
+  phase_a_epochs: 5               # frozen backbone
+  phase_b_epochs: 10              # full fine-tune
+  batch_size: 1
+  num_workers: 4
+  pin_memory: false               # must be false for MPS
+
+  optimizer:
+    type: SGD
+    lr: 0.005
+    momentum: 0.9
+    weight_decay: 0.0005
+
+  scheduler:
+    type: StepLR
+    step_size: 5
+    gamma: 0.5
+
+  phase_b_lr: 0.0005              # reduced LR for full fine-tune
+
+# ─── Checkpointing ────────────────────────────────────────────────────────────
+checkpointing:
+  save_dir: results/model_checkpoints
+  save_every_n_epochs: 3
+  best_model_name: mask_rcnn_best.pth
+
+# ─── Inference ────────────────────────────────────────────────────────────────
+inference:
+  score_threshold: 0.5
+  mask_threshold: 0.5
+  nms_iou_threshold: 0.5
+  device: mps                     # mps | cpu
+
+# ─── Paths ────────────────────────────────────────────────────────────────────
+paths:
+  weights: weights/mask_rcnn_best.pth
+  results: results/
+  metrics: results/metrics/
+  visualizations: results/visualizations/
