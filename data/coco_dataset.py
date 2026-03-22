@@ -47,7 +47,15 @@ class COCOSubsetDataset(Dataset):
         self.img_dir    = Path(img_dir)
         self.transforms = transforms
         self.coco       = COCO(ann_file)
-        self.img_ids    = sorted(self.coco.imgs.keys())
+        # Filter out image ids where the file doesn't exist on disk
+        all_ids = sorted(self.coco.imgs.keys())
+        self.img_ids = [
+            img_id for img_id in all_ids
+            if (self.img_dir / self.coco.imgs[img_id]["file_name"]).exists()
+        ]
+        missing = len(all_ids) - len(self.img_ids)
+        if missing > 0:
+            print(f"  ⚠️  Skipped {missing} missing images, using {len(self.img_ids)} available")
 
     def __len__(self):
         return len(self.img_ids)

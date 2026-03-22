@@ -33,7 +33,7 @@ training:
   phase_a_epochs: 5               # frozen backbone
   phase_b_epochs: 10              # full fine-tune
   batch_size: 1
-  num_workers: 4
+  num_workers: 0              # must be 0 for MPS (no multiprocessing support)
   pin_memory: false               # must be false for MPS
 
   optimizer:
