@@ -15,6 +15,7 @@ build/
 data/coco/
 data/*.zip
 data/*.tar.gz
+data/test_images/
 
 # Model weights (use Git LFS or releases instead)
 weights/
@@ -30,3 +31,5 @@ results/visualizations/
 
 # VS Code
 .vscode/
+
+video.mp4
