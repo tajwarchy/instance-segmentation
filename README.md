@@ -73,7 +73,7 @@ RoI Align
 
 ## Setup
 ```bash
-git clone https://github.com/YOUR_USERNAME/instance-segmentation.git
+git clone https://github.com/tajwarchy/instance-segmentation.git
 cd instance-segmentation
 
 python3.10 -m venv instance-seg
