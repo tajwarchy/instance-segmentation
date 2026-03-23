@@ -16,7 +16,7 @@ a unique color — in real time via webcam and on video files.
 ## Demo
 
 ### Video Inference
-![Video Demo](results/visualizations/demo_video.gif)
+![Video Demo](demo_video.gif)
 
 
 ---
